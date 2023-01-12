@@ -14,7 +14,7 @@ DEPENDS:append = " gstreamer1.0-plugins-base"
 
 inherit freeze-rev local-git
 
-SRCREV = "31f85c31577523d6a0211e600bb4824d8e95d50f"
+SRCREV = "71900e3e0c47f6191b44be9ecd37ffc194af6687"
 SRC_URI = "git://github.com/JeffyCN/mirrors.git;protocol=https;branch=gstreamer-rockchip;"
 
 S = "${WORKDIR}/git"

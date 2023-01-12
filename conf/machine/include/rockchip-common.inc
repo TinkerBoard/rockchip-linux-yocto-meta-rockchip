@@ -27,6 +27,13 @@ LINUXLIBCVERSION ?= "4.4-custom%"
 # Custom kernel might not support newest python
 PACKAGECONFIG:remove:pn-perf = "scripting"
 
+PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
+XSERVER ?= " \
+	xserver-xorg \
+	xf86-video-modesetting \
+	xserver-xorg-module-exa \
+	"
+
 PREFERRED_PROVIDER_virtual/egl ?= "rockchip-libmali"
 PREFERRED_PROVIDER_virtual/libgles1 ?= "rockchip-libmali"
 PREFERRED_PROVIDER_virtual/libgles2 ?= "rockchip-libmali"
@@ -88,14 +95,6 @@ do_post_rootfs() {
 		firmware_dir=${IMAGE_ROOTFS}/${dir}/etc/
 		mkdir -p ${firmware_dir}
 		ln -sf /lib/firmware ${firmware_dir}
-	done
-
-	for volume in ${RK_EXTRA_VOLUMES};do
-		echo "Creating ${volume##*:} for ${volume%:*}(fslabel)..."
-		mkdir -p "${IMAGE_ROOTFS}${volume##*:}"
-
-		echo "PARTLABEL=${volume%:*}\t${volume##*:}\tauto defaults 0 2" \
-			>> "${IMAGE_ROOTFS}/etc/fstab"
 	done
 
 	for overlay in ${RK_OVERLAY_DIRS};do
